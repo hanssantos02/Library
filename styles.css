@@ -90,3 +90,116 @@ header h1 {
 .remove-btn:hover {
   background-color: #ddd;
 }
+
+.new-book-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 2px dashed #bbb;
+  border-radius: 10px;
+  color: #555;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  min-height: 150px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.new-book-btn:hover {
+  background-color: #eee;
+  transform: translateY(-4px);
+}
+
+/* --- Overlay (dark backdrop) --- */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+/* --- Modal box --- */
+.modal {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+  color: #3b2f2f;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+/* --- Form styling --- */
+#new-book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#new-book-form label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #444;
+}
+
+#new-book-form input[type="text"],
+#new-book-form input[type="number"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: normal;
+}
+
+.submit-btn {
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  background-color: #3b2f2f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #2a2222;
+}

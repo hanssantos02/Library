@@ -54,6 +54,10 @@ function render() {
 
         container.appendChild(card);
     });
+    const newBookBtn = document.createElement('button');
+    newBookBtn.className = 'new-book-btn';
+    newBookBtn.textContent = "New Book";
+    container.appendChild(newBookBtn);
 };
 
 container.addEventListener("click", function(event) {
