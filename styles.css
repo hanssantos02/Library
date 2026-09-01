@@ -64,6 +64,7 @@ header h1 {
   font-size: 0.8rem;
   font-weight: bold;
   width: fit-content;
+  cursor: pointer;
 }
 
 .status.read {

@@ -46,7 +46,7 @@ function render() {
             <h2>${book.title}</h2>
             <p>by ${book.author}</p>
             <p>${book.pages} pages</p>
-            <span class="status ${book._isRead ? 'read' : 'unread'}">${book.isRead}</span>
+            <span class="status ${book._isRead ? 'read' : 'unread'}" data-index="${index}">${book.isRead}</span>
             <button class="remove-btn" data-index="${index}">Remove</button>
         `;
 
@@ -66,6 +66,13 @@ container.addEventListener("click", function(event) {
     if (event.target.classList.contains('remove-btn')) {
         const index = event.target.dataset.index;
         myLibrary.splice(index, 1);
+        render();
+    };
+
+    if (event.target.classList.contains('status')) {
+        const index = event.target.dataset.index;
+        const book = myLibrary[index];
+        book._isRead = !book._isRead;
         render();
     };
 });
