@@ -1,5 +1,8 @@
 const myLibrary = [];
 const container = document.getElementById('library-container');
+const overlay = document.getElementById('overlay');
+const closeFormBtn = document.getElementById("close-modal-btn");
+const form = document.getElementById("new-book-form");
 
 function Book(title, author, pages, isRead) {
     if (!new.target) {
@@ -32,11 +35,6 @@ function addBookToLibrary(title, author, pages, isRead) {
     render();
 }
 
-addBookToLibrary("The Hobbit", "IDK WHO", 295, true);
-console.log(myLibrary);
-
-addBookToLibrary("Harry Potter", "JK Rowling", 452, false);
-
 function render() {
     container.innerHTML = '';
 
@@ -58,6 +56,10 @@ function render() {
     newBookBtn.className = 'new-book-btn';
     newBookBtn.textContent = "New Book";
     container.appendChild(newBookBtn);
+
+    newBookBtn.addEventListener("click", () => {
+        overlay.classList.remove('hidden');
+    });
 };
 
 container.addEventListener("click", function(event) {
@@ -67,3 +69,21 @@ container.addEventListener("click", function(event) {
         render();
     };
 });
+
+closeFormBtn.addEventListener("click", () => {
+    overlay.classList.add('hidden');
+    form.reset();
+});
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    const isRead = document.getElementById('isRead').checked;
+    addBookToLibrary(title, author, Number(pages), isRead);
+    overlay.classList.add('hidden');
+    form.reset();
+});
+
+render();
