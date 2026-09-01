@@ -1,4 +1,5 @@
 const myLibrary = [];
+const container = document.getElementById('library-container');
 
 function Book(title, author, pages, isRead) {
     if (!new.target) {
@@ -37,7 +38,6 @@ console.log(myLibrary);
 addBookToLibrary("Harry Potter", "JK Rowling", 452, false);
 
 function render() {
-    const container = document.getElementById('library-container');
     container.innerHTML = '';
 
     myLibrary.forEach((book, index) => {
@@ -56,3 +56,10 @@ function render() {
     });
 };
 
+container.addEventListener("click", function(event) {
+    if (event.target.classList.contains('remove-btn')) {
+        const index = event.target.dataset.index;
+        myLibrary.splice(index, 1);
+        render();
+    };
+});
