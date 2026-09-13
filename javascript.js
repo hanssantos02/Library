@@ -4,29 +4,24 @@ const overlay = document.getElementById('overlay');
 const closeFormBtn = document.getElementById("close-modal-btn");
 const form = document.getElementById("new-book-form");
 
-function Book(title, author, pages, isRead) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to make an object");
+class Book {
+    constructor(title, author, pages, isRead) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this._isRead = isRead;
     }
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this._isRead = isRead;
-    
-}
 
-Object.defineProperty(Book.prototype, 'isRead', {
-    get: function() {
-        return this._isRead ? "Read" : "not read yet"
-    },
-    set: function(value) {
+    get isRead() {
+        return this._isRead ? "Read" : "not read yet";
+    }
+    set isRead(value) {
         this._isRead = value;
-    },
-    enumerable: true
-});
+    }
 
-Book.prototype.info = function() {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead}`;
+    info() {
+        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.isRead}`;
+    }
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
