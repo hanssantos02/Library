@@ -169,7 +169,17 @@ header h1 {
   gap: 0.75rem;
 }
 
+
 #new-book-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #444;
+}
+
+#new-book-form label > span:first-child {
   font-size: 0.85rem;
   font-weight: bold;
   color: #444;
@@ -177,17 +187,74 @@ header h1 {
 
 #new-book-form input[type="text"],
 #new-book-form input[type="number"] {
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 0.95rem;
+  background-color: #fff;
 }
 
-.checkbox-label {
+#new-book-form input[type="text"]:focus,
+#new-book-form input[type="number"]:focus {
+  outline: 2px solid #3b2f2f;
+  outline-offset: 1px;
+  border-color: #3b2f2f;
+}
+
+#titleError,
+#authorError,
+#pagesError,
+#new-book-form [id$="Error"] {
+  display: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #b3261e;
+}
+
+#titleError:not(:empty),
+#authorError:not(:empty),
+#pagesError:not(:empty),
+#new-book-form [id$="Error"]:not(:empty),
+#new-book-form [id$="Error"].visible {
+  display: block;
+}
+
+#new-book-form input.invalid,
+#new-book-form input[type="text"]:user-invalid,
+#new-book-form input[type="number"]:user-invalid {
+  border-color: #b3261e;
+  background-color: #fff5f5;
+}
+
+#new-book-form input.invalid:focus,
+#new-book-form input[type="text"]:user-invalid:focus,
+#new-book-form input[type="number"]:user-invalid:focus {
+  outline-color: #b3261e;
+  border-color: #b3261e;
+}
+
+/* Valid feedback after JS clears custom validity on `input` event */
+#new-book-form input[type="text"]:user-valid,
+#new-book-form input[type="number"]:user-valid {
+  border-color: #2c7a2c;
+}
+
+/* Checkbox row stays horizontal (overrides the column layout above).
+   Needs #new-book-form specificity to beat `#new-book-form label`. */
+#new-book-form label.checkbox-label,
+#new-book-form .checkbox-label {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 0.5rem;
   font-weight: normal;
+}
+
+#new-book-form .checkbox-label input {
+  width: auto;
+  accent-color: #3b2f2f;
 }
 
 .submit-btn {

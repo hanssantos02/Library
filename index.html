@@ -21,15 +21,25 @@
       <button id="close-modal-btn" class="close-btn" type="button">&times;</button>
       <h2>Add a New Book</h2>
 
-      <form id="new-book-form">
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title" required>
+      <form id="new-book-form" novalidate>
+        <label for="title">
+          <span>Title</span>
+          <input type="text" id="title" name="title" required>
+          <span id="titleError"></span>
+        </label>
 
-        <label for="author">Author</label>
-        <input type="text" id="author" name="author" required>
+        <label for="author">
+          <span>Author</span>
+          <input type="text" id="author" name="author" required>
+          <span id="authorError"></span>
+        </label>
+        
+        <label for="pages">
+          <span>Pages</span>
+          <input type="number" id="pages" name="pages" min="1" required>        
+          <span id="pagesError"></span>
+        </label>
 
-        <label for="pages">Pages</label>
-        <input type="number" id="pages" name="pages" min="1" required>
 
         <label class="checkbox-label">
           <input type="checkbox" id="isRead" name="isRead">
