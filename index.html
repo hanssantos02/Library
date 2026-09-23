@@ -2,51 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Library — A Quiet Shelf</title>
+  <meta name="description" content="A small, careful shelf for the books you own and the ones you mean to read.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script src="javascript.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#library-container">Skip to shelf</a>
 
-  <header>
-    <h1>My Library</h1>
+  <div class="page-rule" aria-hidden="true"></div>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="masthead-top">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1.5" y="1.5" width="31" height="31" rx="8" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M10 12.5C11.8 11.6 13.9 11.6 15.7 12.5V22.2C13.9 21.3 11.8 21.3 10 22.2V12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M17.3 12.5C19.1 11.6 21.2 11.6 23 12.5V22.2C21.2 21.3 19.1 21.3 17.3 22.2V12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M10 12.5C11.8 11.6 13.9 11.6 15.7 12.5M17.3 12.5C19.1 11.6 21.2 11.6 23 12.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="brand-text">
+            <h1>My Library</h1>
+            <p class="lede">A quiet shelf for the books you keep, lend, and mean to finish. Shelved in the order they arrived.</p>
+          </div>
+        </div>
+        <button id="header-add-btn" class="add-btn" type="button">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span>Add a book</span>
+        </button>
+      </div>
+
+      <div class="shelf-line">
+        <p id="shelf-summary" class="shelf-summary" aria-live="polite">An empty shelf, waiting for its first spine.</p>
+        <div class="controls" role="search">
+          <label class="search-wrap">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <circle cx="6.8" cy="6.8" r="4.3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10.2 10.2L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="visually-hidden">Search by title or author</span>
+            <input type="search" id="search" name="search" placeholder="Search title or author…" autocomplete="off">
+          </label>
+          <div class="filter-group" role="group" aria-label="Filter by reading state">
+            <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-btn" data-filter="read" aria-pressed="false">Read</button>
+            <button type="button" class="filter-btn" data-filter="unread" aria-pressed="false">To read</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <main id="library-container" class="library-container">
-    
-  </main>
+  <main id="library-container" class="library-container" aria-live="polite" aria-busy="false"></main>
+
+  <footer class="colophon">
+    <p>Set in Fraunces &amp; Inter · Bound in vanilla JavaScript, no frameworks · Your shelf lives in this browser session.</p>
+  </footer>
 
   <div id="overlay" class="overlay hidden">
-    <div id="modal" class="modal">
-      <button id="close-modal-btn" class="close-btn" type="button">&times;</button>
-      <h2>Add a New Book</h2>
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button id="close-modal-btn" class="close-btn" type="button" aria-label="Close dialog">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 2L12 12M12 2L2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h2 id="modal-title">Add a New Book</h2>
+      <p class="modal-sub">Shelve it exactly as it reads on the title page.</p>
 
       <form id="new-book-form" novalidate>
         <label for="title">
           <span>Title</span>
-          <input type="text" id="title" name="title" required>
-          <span id="titleError"></span>
+          <input type="text" id="title" name="title" required maxlength="200" placeholder="e.g. The Left Hand of Darkness" autocomplete="off">
+          <span id="titleError" role="alert"></span>
         </label>
 
         <label for="author">
           <span>Author</span>
-          <input type="text" id="author" name="author" required>
-          <span id="authorError"></span>
+          <input type="text" id="author" name="author" required maxlength="100" placeholder="e.g. Ursula K. Le Guin" autocomplete="off">
+          <span id="authorError" role="alert"></span>
         </label>
-        
+
         <label for="pages">
           <span>Pages</span>
-          <input type="number" id="pages" name="pages" min="1" required>        
-          <span id="pagesError"></span>
+          <input type="number" id="pages" name="pages" min="1" max="100000" step="1" required inputmode="numeric" placeholder="e.g. 304">
+          <span id="pagesError" role="alert"></span>
         </label>
 
-
-        <label class="checkbox-label">
+        <label class="checkbox-label" for="isRead">
           <input type="checkbox" id="isRead" name="isRead">
-          Already read
+          <span class="checkbox-box" aria-hidden="true">
+            <svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1.2 4.6L4 7.4L9.8 1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="checkbox-text">Already read <em>— it will shelve under Read</em></span>
         </label>
 
-        <button type="submit" class="submit-btn">Add Book</button>
+        <button type="submit" class="submit-btn">
+          <span>Add Book</span>
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M2.5 7.5H12.5M8.5 3.5L12.5 7.5L8.5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </form>
     </div>
   </div>
